@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:1.25.3
+        volumes:
+            - ./:/var/www/
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        ports:
+            - "80:80"
+        depends_on:
+            - app
+        container_name: nginx-zemspro
+
+    app:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - database
+        container_name: app-zemspro
+
+    database:
+        image: postgres:16.1
+        restart: always
+        volumes:
+            - ./tmp/db:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=metallica
+            - PGDATA=/var/lib/postgresql/data/some_name/
+        container_name: database-zemspro
+
+    node:
+        image: node:21
+        ports:
+            - "5173:5173"
+        container_name: node_js
+        restart: always
+        tty: true
+        working_dir: /var/www
+        depends_on:
+            - app
+        volumes:
+            - ./:/var/www
