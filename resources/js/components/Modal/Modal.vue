@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">{{buttonName}}</button>
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">{{buttonName}}</button>
 
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -23,7 +23,7 @@
 export default {
     props: {
         buttonName: null,
-        header: null
+        header: null,
     }
 }
 </script>

@@ -19,7 +19,7 @@ class StoreRequest extends FormRequest
             'description' => ['required', 'string'],
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'project_id' => ['required', 'integer', 'exists:projects,id'],
-            'time_spent' => ['nullable', 'date_format:H:i'],
+            'time_spent' => ['nullable', 'date_format:H:i:s'],
         ];
     }
 }
