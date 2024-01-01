@@ -8,8 +8,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-
-    const token = localStorage.getItem('x_xsrf_token');
+    const token = localStorage.getItem('access_token');
 
     if(!token){
         if(to.name === 'login' || to.name === 'register'){
@@ -22,7 +21,7 @@ router.beforeEach((to, from, next) => {
     if(token){
         if(to.name === 'login' || to.name === 'register'){
             return next({
-                name: 'projects'
+                name: 'blog'
             });
         }
     }

@@ -9,6 +9,8 @@
 
 <script>
 import Navbar from "./Navbar/Navbar.vue";
+import axios from "axios";
+import store from "../store/store.js";
 
 export default {
     components: {
@@ -17,33 +19,46 @@ export default {
 
     data(){
         return {
-            token: null
+            token: null,
+        }
+    },
+
+    methods: {
+        getToken(){
+            this.token = localStorage.getItem('access_token');
+        },
+
+        getAuthUser(){
+            axios.get('/api/v1/user').then(res => {
+                store.state.auth.authUser = res.data
+            });
+        },
+
+        getUsers(){
+            axios.get('/api/v1/users').then(res => {
+                store.state.users.users = res.data.data;
+            });
+        },
+
+        logout(){
+            console.log('logout')
         }
     },
 
     mounted() {
         this.getToken();
+        this.getAuthUser();
+        this.getUsers();
+    },
+
+    created() {
+        axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem('access_token')
     },
 
     updated() {
         this.getToken();
-    },
-
-    methods: {
-        logout(){
-            axios.post('api/v1/logout').then(() => {
-
-                if(localStorage.getItem('x_xsrf_token')){
-                    localStorage.removeItem('x_xsrf_token');
-                }
-
-                this.$router.push('/login');
-            });
-        },
-
-        getToken(){
-            this.token = localStorage.getItem('x_xsrf_token');
-        }
+        this.getAuthUser();
+        this.getUsers();
     }
 }
 </script>

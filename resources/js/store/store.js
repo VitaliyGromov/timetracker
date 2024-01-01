@@ -1,16 +1,11 @@
 import {createStore} from "vuex";
+import {useAuthStore} from "./auth.js";
+import {useUserStore} from "./users.js";
 
 const store = createStore({
-    state:{
-        user: null
-    },
-    mutations: {
-        setUser(state, user){
-            state.user = user;
-        }
-    },
-    getters: {
-        getUser: state => state.user
+    modules: {
+        auth: useAuthStore,
+        users: useUserStore,
     }
 });
 

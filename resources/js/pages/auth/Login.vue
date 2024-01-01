@@ -19,6 +19,7 @@
 </template>
 <script>
 import axios from "axios";
+import store from "../../store/store.js";
 
 export default {
     data(){
@@ -34,10 +35,10 @@ export default {
                     email: this.email,
                     password: this.password
                 }).then(res => {
-                    localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN']);
+                    localStorage.setItem('access_token', res.data.access_token);
                     this.$router.push({name: 'projects'});
-                    this.email = '';
-                    this.password = '';
+                    this.email = null;
+                    this.password = null;
                 });
             });
         }

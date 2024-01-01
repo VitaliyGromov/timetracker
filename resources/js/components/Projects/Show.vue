@@ -7,7 +7,9 @@
             <div class="card-body">
                 <h5 class="card-title">No tasks for this project</h5>
                 <p class="card-text">Add tasks, and they will be in the table</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <router-link href="#" class="btn btn-dark" :to="{name: 'tasks.create', params: {
+                    id: this.$route.params.id
+                }}">Create task</router-link>
             </div>
         </div>
         <table v-if="tasks" class="table">

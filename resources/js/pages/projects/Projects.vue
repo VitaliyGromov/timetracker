@@ -29,7 +29,7 @@
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" placeholder="Enter project name" v-model="name">
         </div>
-        <button v-on:click.prevent="store" type="submit" class="btn btn-secondary">
+        <button @click="store" type="submit" class="btn btn-secondary">
             Save
         </button>
     </Modal>
@@ -39,6 +39,7 @@
 
 import Modal from "../../components/Modal/Modal.vue";
 import axios from "axios";
+import store from "../../store/store.js";
 
 export default  {
     components: {
@@ -66,8 +67,10 @@ export default  {
         store(){
             axios.post('/api/v1/projects', {
                 name: this.name,
-                user_id: 1
-            }).then(this.getProjects());
+                user_id: store.state.auth.authUser.id
+            }).then(() => {
+                this.getProjects();
+            });
         }
     }
 }

@@ -22,9 +22,14 @@ class Task extends Model
 
     protected $guarded = [];
 
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function performer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'performer_id');
     }
 
     public function project(): BelongsTo
