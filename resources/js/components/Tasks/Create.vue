@@ -55,7 +55,7 @@ export default {
         createTask(){
             this.task.author_id = store.state.auth.authUser.id;
             axios.post('/api/v1/tasks', this.task).then(() => {
-                router.push({name: 'project.show', params: {id: this.$route.params.id}})
+                router.push({name: 'projects.show', params: {id: this.$route.params.id}})
             });
         },
     }

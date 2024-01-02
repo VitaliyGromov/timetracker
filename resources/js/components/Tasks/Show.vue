@@ -3,19 +3,14 @@
         <Loader/>
     </div>
     <div v-else>
-        <h1 class="h1 mb-3">
-            {{task?.name}} status {{task?.status}}
-        </h1>
+        <div class="mb-3">
+            <h1>{{task?.name}}<span class="h5">({{task?.status}})</span></h1>
+        </div>
         <p class="text-justify h3">
             {{task?.description}}
         </p>
-        <router-link :to="{name: 'tasks.edit', params: {
-            project_id: task?.project?.id,
-            task_id: task?.id
-        }}" class="btn btn-dark me-3">
-            Edit
-        </router-link>
-        <router-link :to="{name: 'projects.show', params: {id: task?.project?.id}}" class="btn btn-secondary">
+        <Edit v-bind:task="task"/>
+        <router-link :to="{name: 'projects.show', params: {id: task?.project?.id}}" class="btn btn-dark ms-3">
             Back
         </router-link>
     </div>
@@ -23,13 +18,27 @@
 <script>
 import axios from "axios";
 import Loader from "../Loader/Loader.vue";
+import Modal from "../Modal/Modal.vue";
+import store from "../../store/store.js";
+import Edit from "./Edit.vue";
 
 export default {
-    components: {Loader},
+    computed: {
+        store() {
+            return store
+        },
+    },
+
+    components: {
+        Edit,
+        Modal,
+        Loader
+    },
+
     data(){
         return {
             task: null,
-            loading: true
+            loading: true,
         }
     },
 
@@ -39,7 +48,7 @@ export default {
                 this.task = res.data.data;
                 this.loading = false;
             });
-        }
+        },
     },
 
     mounted() {

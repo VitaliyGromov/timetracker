@@ -1,0 +1,46 @@
+<template>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Project name</th>
+            <th scope="col">Author</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="project in projects">
+            <th scope="row">{{project?.id}}</th>
+            <td>{{project?.name}}</td>
+            <td>{{project?.user?.name}}</td>
+            <td>
+                <router-link :to="{name: 'projects.show', params: {id: project?.id}}" class="btn btn-dark">
+                    Go to project
+                </router-link>
+            </td>
+            <td>
+                <button type="button" @click.prevent="deleteProject(project?.id)" class="btn btn-danger">
+                    Delete project
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+    props: {
+        projects: Object
+    },
+
+    methods: {
+        deleteProject(id){
+            axios.delete('/api/v1/projects/' + id);
+        }
+    }
+}
+</script>
