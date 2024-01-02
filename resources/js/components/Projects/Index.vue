@@ -39,7 +39,9 @@ export default {
 
     methods: {
         deleteProject(id){
-            axios.delete('/api/v1/projects/' + id);
+            axios.delete('/api/v1/projects/' + id).then(() => {
+                this.$parent.getProjects()
+            });
         }
     }
 }

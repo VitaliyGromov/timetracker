@@ -32,6 +32,8 @@ export default {
             axios.post('/api/v1/projects', {
                 name: this.projectName,
                 user_id: store.state.auth.authUser.id
+            }).then(() => {
+                this.$parent.getProjects();
             });
         },
     }
