@@ -47,8 +47,8 @@ export default {
 
     mounted() {
         this.getToken();
-        this.getAuthUser();
         this.getUsers();
+        this.getAuthUser();
     },
 
     created() {
@@ -57,8 +57,8 @@ export default {
 
     updated() {
         this.getToken();
-        this.getAuthUser();
         this.getUsers();
+        this.getAuthUser();
     }
 }
 </script>

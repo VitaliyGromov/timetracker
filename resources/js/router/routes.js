@@ -1,35 +1,13 @@
-const routes = [
-    {
-        path: '/projects',
-        name: 'projects',
-        component: () => import('../pages/projects/Projects.vue'),
-    },
-    {
-        path: '/projects/:id',
-        name: 'projects.show',
-        component: () => import('../components/Projects/Show.vue'),
+import tasks from "./routes/tasks.js";
+import auth from "./routes/auth.js";
+import projects from "./routes/projects.js";
+import statistic from "./routes/statistic.js";
 
-    },
-    {
-        path: '/projects/:project_id/tasks/:task_id',
-        name: 'task.show',
-        component: () => import('../components/Tasks/Show.vue'),
-    },
-    {
-        path: '/projects/:id/tasks',
-        name: 'tasks.create',
-        component: () => import('../components/Tasks/Create.vue'),
-    },
-    {
-        path: '/register',
-        name: 'register',
-        component:() => import('../pages/auth/Register.vue'),
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: () => import('../pages/auth/Login.vue'),
-    }
+const routes = [
+    ...statistic,
+    ...projects,
+    ...auth,
+    ...tasks
 ]
 
 export default routes;

@@ -1,11 +1,8 @@
-<script setup>
-
-</script>
-
 <template>
-
+    <h1>
+        Edit task
+    </h1>
 </template>
 
-<style scoped>
-
-</style>
+<script setup>
+</script>

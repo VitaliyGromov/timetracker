@@ -18,10 +18,10 @@
                 <option v-for="user in store.state.users.users" v-bind:value="user.id">{{user.name}}</option>
             </select>
         </div>
-        <div class="mt-3" role="group" aria-label="Basic example">
+        <div class="mt-3" role="group">
             <button type="submit" @click.prevent="createTask" class="btn btn-dark me-3">Save</button>
             <router-link :to="{name: 'projects.show', params: {
-                id: project_id
+                id: this.$route.params.id
             }}" class="btn btn-secondary">Back</router-link>
         </div>
     </div>
@@ -46,19 +46,18 @@ export default {
                 name: null,
                 description: null,
                 performer_id: null,
-                author_id: store.state.auth.authUser.id,
-                project_id: this.project_id
+                project_id: this.$route.params.id
             },
-            project_id: this.$route.params.id
         }
     },
 
     methods: {
         createTask(){
+            this.task.author_id = store.state.auth.authUser.id;
             axios.post('/api/v1/tasks', this.task).then(() => {
-                router.push({name: 'project.show', params: {id: this.project_id}})
+                router.push({name: 'project.show', params: {id: this.$route.params.id}})
             });
-        }
+        },
     }
 }
 </script>

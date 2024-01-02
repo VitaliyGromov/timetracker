@@ -8,7 +8,8 @@
                 <th scope="col">id</th>
                 <th scope="col">Project name</th>
                 <th scope="col">Author</th>
-                <th scope="col">Handle</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,11 @@
                     <router-link :to="{name: 'projects.show', params: {id: project.id}}" class="btn btn-dark">
                         Go to project
                     </router-link>
+                </td>
+                <td>
+                    <button type="button" @click.prevent="deleteProject(project.id)" class="btn btn-danger">
+                        Delete project
+                    </button>
                 </td>
             </tr>
         </tbody>
@@ -69,6 +75,12 @@ export default  {
                 name: this.name,
                 user_id: store.state.auth.authUser.id
             }).then(() => {
+                this.getProjects();
+            });
+        },
+
+        deleteProject(id){
+            axios.delete('/api/v1/projects/' + id).then(() => {
                 this.getProjects();
             });
         }
