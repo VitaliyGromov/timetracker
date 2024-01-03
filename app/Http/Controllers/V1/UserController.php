@@ -22,4 +22,9 @@ class UserController extends Controller
     {
         return $request->user();
     }
+
+    public function show(User $user): JsonResource
+    {
+        return UserResource::make($user);
+    }
 }

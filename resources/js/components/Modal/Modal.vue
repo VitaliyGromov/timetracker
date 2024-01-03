@@ -19,11 +19,28 @@
 </template>
 
 <script>
-
 export default {
     props: {
         buttonName: null,
         header: null,
+    },
+
+    data(){
+        return {
+            modal: null,
+        }
+    },
+
+    mounted() {
+        this.modal = new bootstrap.Modal(document.getElementById('modal'), {
+            keyword: false
+        });
+    },
+
+    methods: {
+        hideModal(){
+            this.modal.hide();
+        }
     }
 }
 </script>

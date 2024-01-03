@@ -29,7 +29,7 @@ export default {
         },
 
         getAuthUser(){
-            axios.get('/api/v1/user').then(res => {
+            axios.get('/api/v1/authUser').then(res => {
                 store.state.auth.authUser = res.data
             });
         },

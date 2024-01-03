@@ -1,5 +1,5 @@
 <template>
-    <Modal header="Edit task" buttonName="Edit">
+    <Modal ref="modal" header="Edit task" buttonName="Edit">
         <div class="form-group mb-3">
             <label for="task_name">Task name</label>
             <input type="text" class="form-control" v-model="task.name" id="task_name" placeholder="Task name">
@@ -10,9 +10,9 @@
         </div>
         <div class="form-group">
             <label for="performer_id">Performer</label>
-            <select class="form-control" v-model="task.performer.id" id="performer_id">
+            <select class="form-control" v-model="performer" id="performer_id">
                 <option>Nobody</option>
-                <option v-for="user in store.state.users.users" v-bind:value="user.id" :selected="task.performer.id">{{user.name}}</option>
+                <option v-for="user in store.state.users.users" v-bind:value="user.id">{{user.name}}</option>
             </select>
         </div>
         <div class="mb-3">
@@ -37,8 +37,17 @@ export default {
     computed: {
         store() {
             return store
+        },
+
+        performer: function () {
+            if (this.task.performer !== null){
+                return this.performer_id = this.task.performer.id;
+            } else {
+                return this.performer_id;
+            }
         }
     },
+
     components: {Modal},
     props: {
         task: Object
@@ -46,7 +55,8 @@ export default {
 
     data(){
         return {
-            statuses: STATUS
+            statuses: STATUS,
+            performer_id: null
         }
     },
 
@@ -58,8 +68,9 @@ export default {
                 status: this.task.status,
                 project_id: this.task.project.id,
                 author_id: this.task.author.id,
-                performer_id: this.task.performer.id
+                performer_id: this.performer_id
             }).then(() => {
+                this.$refs.modal.hideModal();
                 router.push({name: 'projects.show', params: {id: this.task.project.id}})
             });
         }

@@ -31,8 +31,10 @@
 
 <script>
 import axios from "axios";
+import Edit from "./Edit.vue";
 
 export default {
+    components: {Edit},
     props: {
         projects: Object
     },
@@ -43,6 +45,6 @@ export default {
                 this.$parent.getProjects()
             });
         }
-    }
+    },
 }
 </script>

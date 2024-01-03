@@ -10,9 +10,11 @@
             <div class="card-body">
                 <h5 class="card-title">No tasks for this project</h5>
                 <p class="card-text">Add tasks, and they will be in the table</p>
-                <router-link href="#" class="btn btn-dark" :to="{name: 'tasks.create', params: {
+                <router-link href="#" class="btn btn-dark me-3" :to="{name: 'tasks.create', params: {
                     id: this.project?.id
                 }}">Create task</router-link>
+                <Edit v-bind:project="project"/>
+                <router-link to="/projects" class="btn btn-secondary ms-3">Back</router-link>
             </div>
         </div>
         <table v-if="tasks?.length !== 0" class="table">
@@ -46,9 +48,13 @@
             </tr>
             </tbody>
         </table>
-        <router-link v-if="tasks?.length !== 0" href="#" class="btn btn-dark" :to="{name: 'tasks.create', params: {
+        <div v-if="tasks?.length !== 0">
+            <router-link class="btn btn-dark me-3" :to="{name: 'tasks.create', params: {
                     id: this.project?.id
                 }}">Create task</router-link>
+            <Edit v-bind:project="project"/>
+            <router-link to="/projects" class="btn btn-secondary ms-3">Back</router-link>
+        </div>
     </div>
 </template>
 
@@ -56,9 +62,10 @@
 
 import axios from "axios";
 import Loader from "../Loader/Loader.vue";
+import Edit from "./Edit.vue";
 
 export default {
-    components: {Loader},
+    components: {Edit, Loader},
     data(){
         return {
             project: null,

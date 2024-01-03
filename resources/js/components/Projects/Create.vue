@@ -1,5 +1,5 @@
 <template>
-    <Modal header="Add new project" buttonName="Add project">
+    <Modal ref="modal" header="Add new project" buttonName="Add project">
         <div class="form-group mb-2">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" v-model="projectName" placeholder="Enter project name">
@@ -33,6 +33,7 @@ export default {
                 name: this.projectName,
                 user_id: store.state.auth.authUser.id
             }).then(() => {
+                this.$refs.modal.hideModal();
                 this.$parent.getProjects();
             });
         },

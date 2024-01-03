@@ -10,6 +10,11 @@ const projects = [
         component: () => import('../../components/Projects/Show.vue'),
 
     },
+    {
+        path: '/projects/:id/edit',
+        name: 'projects.edit',
+        component: () => import('../../components/Projects/Edit.vue'),
+    },
 ];
 
 export default projects;
