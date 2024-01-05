@@ -16,12 +16,13 @@ class UserStatisticResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'new_tasks' => $this->tasks()->where('status', TaskStatus::NEW)->count(),
-            'in_process_tasks' => $this->tasks()->where('status', TaskStatus::IN_PROCESS)->count(),
-            'on_test_tasks' => $this->tasks()->where('status', TaskStatus::ON_TESTS)->count(),
-            'returned_tasks' => $this->tasks()->where('status', TaskStatus::RETURNED)->count(),
-            'completed_tasks' => $this->tasks()->where('status', TaskStatus::COMPLETED)->count(),
-            'time_spent' => $this->tasks()->sum('time_spent'),
+            'new_tasks' => $this->performedTasks()->where('status', TaskStatus::NEW)->count(),
+            'in_process_tasks' => $this->performedTasks()->where('status', TaskStatus::IN_PROCESS)->count(),
+            'on_test_tasks' => $this->performedTasks()->where('status', TaskStatus::ON_TESTS)->count(),
+            'returned_tasks' => $this->performedTasks()->where('status', TaskStatus::RETURNED)->count(),
+            'completed_tasks' => $this->performedTasks()->where('status', TaskStatus::COMPLETED)->count(),
+            'authored_tasks' => $this->authoredTasks()->count(),
+            'spent_time' => $this->spentTime()->get()->sum('time_spent')
         ];
     }
 }

@@ -16,10 +16,8 @@ class LoginController extends Controller
 
         Auth::attempt($validated);
 
-        $user = User::where('email', $validated['email'])->first();
-
         return response()->json([
-            'access_token' => $user->createToken('auth-token')->plainTextToken,
+            'message' => 'You are log in'
         ]);
     }
 }

@@ -17,19 +17,9 @@ export default {
         Navbar
     },
 
-    data(){
-        return {
-            token: null,
-        }
-    },
-
     methods: {
-        getToken(){
-            this.token = localStorage.getItem('access_token');
-        },
-
         getAuthUser(){
-            axios.get('/api/v1/authUser').then(res => {
+            axios.get('/api/v1/users/authUser').then(res => {
                 store.state.auth.authUser = res.data
             });
         },
@@ -41,22 +31,22 @@ export default {
         },
 
         logout(){
-            console.log('logout')
+            axios.post('/api/v1/logout').then(() => {
+                if(localStorage.getItem('x_xsrf_token')){
+                    localStorage.removeItem('x_xsrf_token');
+                }
+
+                this.$router.push('/login');
+            });
         }
     },
 
     mounted() {
-        this.getToken();
         this.getUsers();
         this.getAuthUser();
     },
 
-    created() {
-        axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem('access_token')
-    },
-
     updated() {
-        this.getToken();
         this.getUsers();
         this.getAuthUser();
     }

@@ -35,7 +35,7 @@ export default {
                     email: this.email,
                     password: this.password
                 }).then(res => {
-                    localStorage.setItem('access_token', res.data.access_token);
+                    localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN']);
                     this.$router.push({name: 'projects'});
                     this.email = null;
                     this.password = null;

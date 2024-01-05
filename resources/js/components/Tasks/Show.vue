@@ -13,6 +13,9 @@
         <router-link :to="{name: 'projects.show', params: {id: task?.project?.id}}" class="btn btn-dark ms-3">
             Back
         </router-link>
+        <div class="mt-3">
+            <Timer v-bind:task="task"/>
+        </div>
     </div>
 </template>
 <script>
@@ -21,6 +24,7 @@ import Loader from "../Loader/Loader.vue";
 import Modal from "../Modal/Modal.vue";
 import store from "../../store/store.js";
 import Edit from "./Edit.vue";
+import Timer from "../Timer/Timer.vue";
 
 export default {
     computed: {
@@ -30,6 +34,7 @@ export default {
     },
 
     components: {
+        Timer,
         Edit,
         Modal,
         Loader

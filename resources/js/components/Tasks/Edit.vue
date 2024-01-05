@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             <label for="performer_id">Performer</label>
-            <select class="form-control" v-model="performer" id="performer_id">
+            <select class="form-control" v-model="performer_id" id="performer_id">
                 <option>Nobody</option>
                 <option v-for="user in store.state.users.users" v-bind:value="user.id">{{user.name}}</option>
             </select>
@@ -38,14 +38,6 @@ export default {
         store() {
             return store
         },
-
-        performer: function () {
-            if (this.task.performer !== null){
-                return this.performer_id = this.task.performer.id;
-            } else {
-                return this.performer_id;
-            }
-        }
     },
 
     components: {Modal},
@@ -73,6 +65,14 @@ export default {
                 this.$refs.modal.hideModal();
                 router.push({name: 'projects.show', params: {id: this.task.project.id}})
             });
+        }
+    },
+
+    mounted() {
+        if (this.task.performer !== null){
+            return this.performer_id = this.task.performer.id;
+        } else {
+            return this.performer_id;
         }
     }
 }

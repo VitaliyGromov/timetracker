@@ -27,12 +27,12 @@
                 <td>{{statistic?.completed_tasks}}</td>
             </tr>
             <tr>
-                <th></th>
-                <td></td>
+                <th>Кол-во созданных задач</th>
+                <td>{{statistic?.authored_tasks}}</td>
             </tr>
             <tr>
                 <th>Общее время на задачи</th>
-                <td>{{statistic?.time_spent}}</td>
+                <td>{{spentTime}}</td>
             </tr>
             </tbody>
         </table>
@@ -45,6 +45,7 @@ import {defineComponent} from "vue";
 import Modal from "../Modal/Modal.vue";
 import axios from "axios";
 import Loader from "../Loader/Loader.vue";
+import {formatTime} from "../../helpers/time.js";
 
 export default defineComponent({
     components: {Loader, Modal},
@@ -53,7 +54,17 @@ export default defineComponent({
         return {
             statistic: null,
             user: null,
-            loading: true
+            loading: true,
+        }
+    },
+
+    computed: {
+        spentTime: function (){
+            if (this.statistic.spent_time !== 0){
+                return formatTime(this.statistic.spent_time);
+            }
+
+            return '00:00:00';
         }
     },
 

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * class App\Models\Task
@@ -14,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property $status
  * @property $project_id
  * @property $user_id
- * @property $time_spent
 */
 class Task extends Model
 {
@@ -35,5 +36,15 @@ class Task extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function spentTimes(): HasMany
+    {
+        return $this->hasMany(SpentTime::class, 'task_id');
+    }
+
+    public function spentTimeByUser(int $userId): HasMany
+    {
+        return $this->HasMany(SpentTime::class, 'task_id')->where('user_id', $userId);
     }
 }
