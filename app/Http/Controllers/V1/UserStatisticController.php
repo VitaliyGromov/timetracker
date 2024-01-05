@@ -7,7 +7,7 @@ use App\Http\Resources\V1\UserStatisticResource;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StatisticController extends Controller
+class UserStatisticController extends Controller
 {
     public function userStatistic(User $user): JsonResource
     {

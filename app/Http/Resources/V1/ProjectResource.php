@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Actions\CalculateSpentTimeOnProject;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +19,7 @@ class ProjectResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'user' => UserResource::make($this->user),
+            'time_spent' => CalculateSpentTimeOnProject::handle($this->tasks)
         ];
     }
 }
