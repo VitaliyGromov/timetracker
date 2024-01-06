@@ -15,28 +15,8 @@
 
 <script>
 export default {
-    data(){
-        return {
-            token: null
-        }
-    },
-
-    methods: {
-        getToken(){
-            this.token = localStorage.getItem('x_xsrf_token');
-        }
-    },
-
-    beforeMount() {
-        this.getToken();
-    },
-
-    mounted() {
-        this.getToken()
-    },
-
-    updated() {
-        this.getToken()
+    props: {
+        token: null
     }
 }
 </script>

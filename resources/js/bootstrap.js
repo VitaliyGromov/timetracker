@@ -17,7 +17,7 @@ window.axios.defaults.withCredentials = true;
 window.axios.defaults.withXSRFToken = true;
 
 window.axios.interceptors.response.use({}, err => {
-    if(err.response.status === 401 || err.response.status === 401){
+    if(err.response.status === 401 || err.response.status === 419){
         router.push({
             name: 'login'
         });

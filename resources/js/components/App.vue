@@ -1,8 +1,8 @@
 <template>
-    <Navbar/>
+    <Navbar v-bind:token="token"/>
     <div class="py-4">
         <div class="container">
-            <router-view/>
+            <router-view :key="$route.fullPath"/>
         </div>
     </div>
 </template>
@@ -17,7 +17,17 @@ export default {
         Navbar
     },
 
+    data(){
+        return {
+            token: null
+        }
+    },
+
     methods: {
+        getToken(){
+            this.token = localStorage.getItem('x_xsrf_token');
+        },
+
         getAuthUser(){
             axios.get('/api/v1/users/authUser').then(res => {
                 store.state.auth.authUser = res.data
@@ -42,6 +52,7 @@ export default {
     },
 
     mounted() {
+        this.getToken();
         this.getUsers();
         this.getAuthUser();
     },
@@ -49,6 +60,7 @@ export default {
     updated() {
         this.getUsers();
         this.getAuthUser();
+        this.getToken();
     }
 }
 </script>
