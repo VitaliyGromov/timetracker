@@ -3,7 +3,6 @@
         <div class="container">
             <div class="m-2">
                 <router-link v-if="token" to="/projects" class="navbar-brand">Projects</router-link>
-                <router-link to="/statistic" v-if="token" class="navbar-brand">Statistics</router-link>
             </div>
             <div class="m-2">
                 <router-link v-if="!token" to="login" class="navbar-brand">Login</router-link>
